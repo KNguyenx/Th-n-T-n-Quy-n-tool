@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
@@ -21,7 +22,7 @@
     --border-highlight: #6b5299;
 }
 
-* {
+\* {
     box-sizing: border-box;
     user-select: none;
 }
@@ -297,7 +298,7 @@ h2 {
         margin-left: 0;
     }
 }
-</style>
+
 </head>
 
 <body>
@@ -311,7 +312,7 @@ h2 {
 
 <div class="wrap">
 
-    <!-- ==============================
+&#x20;   <!-- ==============================
          KHU VỰC CHỌN BÀI
     =============================== -->
     <div class="panel">
@@ -341,13 +342,14 @@ h2 {
         <div id="total" class="total"></div>
     </div>
 
+
 </div>
 
 <script>
-/* =====================================
+/\* =====================================
    DANH SÁCH CÁC LOẠI BÀI
-===================================== */
-const CARDS = [
+===================================== \*/
+const CARDS = \[
     "Sát",
     "Né",
     "Đào",
@@ -365,16 +367,16 @@ const CARDS = [
     "Xích Sắt Liên Hoàn"
 ];
 
-/* =====================================
+/\* =====================================
    DỮ LIỆU ĐÃ CHỌN
-===================================== */
-let selected = [];
+===================================== \*/
+let selected = \[];
 
-/* =====================================
+/\* =====================================
    ĐỌC DỮ LIỆU TỪ LOCAL STORAGE
-===================================== */
+===================================== \*/
 try {
-    const saved = localStorage.getItem("thanTonQuyen_selected");
+    const saved = localStorage.getItem("thanTonQuyen\_selected");
     if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) {
@@ -383,32 +385,32 @@ try {
     }
 } catch (error) {
     console.error("Không thể đọc dữ liệu từ LocalStorage:", error);
-    selected = [];
+    selected = \[];
 }
 
-/* =====================================
+/\* =====================================
    LƯU DỮ LIỆU
-===================================== */
+===================================== \*/
 function save() {
     try {
-        localStorage.setItem("thanTonQuyen_selected", JSON.stringify(selected));
+        localStorage.setItem("thanTonQuyen\_selected", JSON.stringify(selected));
     } catch (error) {
         console.error("Không thể lưu dữ liệu vào LocalStorage:", error);
     }
 }
 
-/* =====================================
+/\* =====================================
    CHỌN BÀI
-===================================== */
+===================================== \*/
 function choose(card) {
     selected.push(card);
     save();
     render();
 }
 
-/* =====================================
+/\* =====================================
    HOÀN TÁC BƯỚC CUỐI
-===================================== */
+===================================== \*/
 function undoLast() {
     if (selected.length === 0) return;
     selected.pop();
@@ -416,43 +418,43 @@ function undoLast() {
     render();
 }
 
-/* =====================================
+/\* =====================================
    XÓA TOÀN BỘ SỐ LƯỢNG CỦA 1 LOẠI BÀI
-===================================== */
+===================================== \*/
 function removeCardType(cardName) {
     selected = selected.filter(item => item !== cardName);
     save();
     render();
 }
 
-/* =====================================
+/\* =====================================
    RESET TOÀN BỘ
-===================================== */
+===================================== \*/
 function resetAll() {
     if (selected.length === 0) return;
 
     const confirmed = confirm("Bạn có chắc chắn muốn xóa toàn bộ danh bài đã chọn không?");
     if (!confirmed) return;
 
-    selected = [];
+    selected = \[];
     save();
     render();
 }
 
-/* =====================================
+/\* =====================================
    ĐẾM SỐ LƯỢNG BÀI
-===================================== */
+===================================== \*/
 function getCounts() {
     const counts = {};
     selected.forEach(card => {
-        counts[card] = (counts[card] || 0) + 1;
+        counts\[card] = (counts\[card] || 0) + 1;
     });
     return counts;
 }
 
-/* =====================================
+/\* =====================================
    HIỂN THỊ CÁC NÚT BÀI
-===================================== */
+===================================== \*/
 function renderCards(counts) {
     const grid = document.getElementById("cardGrid");
     grid.innerHTML = "";
@@ -463,7 +465,7 @@ function renderCards(counts) {
         button.className = "card-btn";
         button.textContent = card;
 
-        if (counts[card] > 0) {
+        if (counts\[card] > 0) {
             button.classList.add("hidden");
         }
 
@@ -472,9 +474,9 @@ function renderCards(counts) {
     });
 }
 
-/* =====================================
+/\* =====================================
    HIỂN THỊ DANH SÁCH TỔNG HỢP
-===================================== */
+===================================== \*/
 function renderSummary(counts) {
     const summary = document.getElementById("summary");
     summary.innerHTML = "";
@@ -489,7 +491,7 @@ function renderSummary(counts) {
         return;
     }
 
-    entries.forEach(([name, count]) => {
+    entries.forEach((\[name, count]) => {
         const item = document.createElement("div");
         item.className = "item";
 
@@ -512,7 +514,7 @@ function renderSummary(counts) {
         const removeBtn = document.createElement("button");
         removeBtn.type = "button";
         removeBtn.className = "remove-single";
-        removeBtn.innerHTML = "&#10005;";
+        removeBtn.innerHTML = "\&#10005;";
         removeBtn.title = "Xóa loại bài này";
         removeBtn.addEventListener("click", () => removeCardType(name));
 
@@ -526,9 +528,9 @@ function renderSummary(counts) {
     });
 }
 
-/* =====================================
+/\* =====================================
    HIỂN THỊ TỔNG SỐ LÁ BÀI
-===================================== */
+===================================== \*/
 function renderTotal() {
     const totalElement = document.getElementById("total");
     const undoBtn = document.getElementById("undoBtn");
@@ -547,9 +549,9 @@ function renderTotal() {
     totalElement.innerHTML = "Tổng số bài đã chọn: <b>" + total + "</b> lá";
 }
 
-/* =====================================
+/\* =====================================
    RENDER TOÀN BỘ GIAO DIỆN
-===================================== */
+===================================== \*/
 function render() {
     const counts = getCounts();
     renderCards(counts);
@@ -557,17 +559,17 @@ function render() {
     renderTotal();
 }
 
-/* =====================================
+/\* =====================================
    GẮN SỰ KIỆN NÚT HỆ THỐNG
-===================================== */
+===================================== \*/
 document.getElementById("resetBtn").addEventListener("click", resetAll);
 document.getElementById("undoBtn").addEventListener("click", undoLast);
 
-/* =====================================
+/\* =====================================
    KHỞI CHẠY ỨNG DỤNG
-===================================== */
+===================================== \*/
 render();
-</script>
 
 </body>
 </html>
+
